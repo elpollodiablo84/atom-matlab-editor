@@ -1,0 +1,22 @@
+{
+  "name": "atom-matlab-editor",
+  "main": "./lib/atom-matlab-editor",
+  "version": "0.1.0",
+  "description": "MATLAB Editor's functionalities and utilities in Atom",
+  "keywords": [
+    "MATLAB",
+    "editor",
+    "script",
+    "run"
+  ],
+  "activationCommands": {
+    "atom-workspace": "atom-matlab-editor:run-file"
+  },
+  "repository": "https://github.com/atom/atom-matlab-editor",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}

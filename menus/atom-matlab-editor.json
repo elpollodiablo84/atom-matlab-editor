@@ -1,0 +1,18 @@
+{
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "Atom Matlab Editor",
+          "submenu": [
+            {
+              "label": "Run File",
+              "command": "atom-matlab-editor:run-file"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

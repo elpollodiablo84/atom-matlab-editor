@@ -6,10 +6,14 @@ public class javaMatlabConnect {
         String myEngine = "AtomMatlabEngine";
         StringWriter writer = new StringWriter();
         MatlabEngine eng = MatlabEngine.connectMatlab(myEngine);
+        File mainFile = new File(javaMatlabConnect.class.getResource("javaMatlabConnect.class").getPath());
+        String javaDir = mainFile.getParent();
 
   		eng.eval(args[0], writer, null);
+        String outString = writer.toString();
+        eng.feval(0, "printTextFromOutside", "\n" + outString);
+        System.out.println(outString);
 
-        System.out.println(writer.toString());
         writer.close();
         eng.close();
     }

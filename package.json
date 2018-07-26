@@ -9,6 +9,13 @@
     "script",
     "run"
   ],
+  "consumedServices": {
+    "busy-signal": {
+      "versions": {
+        "1.0.0": "consumeSignal"
+      }
+    }
+  },
   "activationCommands": {
     "atom-workspace": "atom-matlab-editor:run-file"
   },
@@ -17,6 +24,9 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
+  "package-deps": [
+    "busy-signal"
+  ],
   "dependencies": {
   }
 }

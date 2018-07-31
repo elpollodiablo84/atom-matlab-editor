@@ -1,5 +1,6 @@
 {
   "atom-workspace": {
-    "f5": "atom-matlab-editor:run-file"
+    "f5": "atom-matlab-editor:run-file",
+    "ctrl-f5": "atom-matlab-editor:run-section"
   }
 }

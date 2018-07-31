@@ -1,4 +1,4 @@
-function printTextFromOutside(text, doAppendPrompt)
+function printTextFromOutside(text, doAppendPrompt, isEditable, textToAddToHistory)
     %% Get GUI components
     try
         jTextArea = com.mathworks.mde.cmdwin.XCmdWndView.getInstance;
@@ -13,7 +13,7 @@ function printTextFromOutside(text, doAppendPrompt)
     cmdWinDocClass = cmdWinDoc.getClass();
 
     % CmdWinDocument.appendprompt: append a prompt to the Command Window's text
-    if doAppendPrompt
+    if (doAppendPrompt)
         mAppendPrompt = javaMethodEDT('getDeclaredMethod', cmdWinDocClass, 'appendPrompt', []);
         mAppendPrompt.setAccessible(true);
     end
@@ -25,11 +25,21 @@ function printTextFromOutside(text, doAppendPrompt)
     mShouldSyntaxHighlight.setAccessible(true);
 
     %% Display the text
-    javaMethodEDT('invoke', mShouldSyntaxHighlight, cmdWinDoc, false);
+    javaMethodEDT('invoke', mShouldSyntaxHighlight, cmdWinDoc, false)
+
     javaMethodEDT('append', jTextArea, sprintf(text))
-    if doAppendPrompt
-        javaMethodEDT('invoke', mAppendPrompt, cmdWinDoc, []);
+    if (doAppendPrompt)
+        javaMethodEDT('invoke', mAppendPrompt, cmdWinDoc, [])
     end
-    javaMethodEDT('invoke', mShouldSyntaxHighlight, cmdWinDoc, true);
+
+    javaMethodEDT('setEditable', jTextArea, isEditable)
+    javaMethodEDT('invoke', mShouldSyntaxHighlight, cmdWinDoc, true)
+    javaMethodEDT('setCaretPosition', jTextArea, jTextArea.getText().length())
+
     javaMethodEDT('repaint', jTextArea)
+
+    %% Add the command to the command history
+    if (strlength(textToAddToHistory) > 0)
+        com.mathworks.mlservices.MLCommandHistoryServices.add(textToAddToHistory);
+    end
 end

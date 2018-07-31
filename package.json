@@ -14,10 +14,18 @@
       "versions": {
         "1.0.0": "consumeSignal"
       }
+    },
+    "section-bounds": {
+      "versions": {
+        ">=1.7.0": "consumeBounds"
+      }
     }
   },
   "activationCommands": {
-    "atom-workspace": "atom-matlab-editor:run-file"
+    "atom-workspace": [
+      "atom-matlab-editor:run-file",
+      "atom-matlab-editor:run-section"
+    ]
   },
   "repository": "https://github.com/atom/atom-matlab-editor",
   "license": "MIT",
@@ -25,8 +33,11 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "package-deps": [
-    "busy-signal"
+    "busy-signal",
+    "language-matlab-plus"
   ],
   "dependencies": {
+    "tmp": ">=0.0.1",
+    "fs": ">=0.0.1"
   }
 }

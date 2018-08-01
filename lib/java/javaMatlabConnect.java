@@ -21,31 +21,41 @@ public class javaMatlabConnect {
         int type = Integer.parseInt(args[1]);
         String outString = "";
 
-        if (type == 0) {
-            // Run File: 'inputText' is the file path
-            File file = new File(inputText);
-            String fileName = file.getName().toString().split("[.]")[0];
-            eng.feval(0, "printTextFromOutside", fileName + "\n", false, true, fileName);
+        try {
+            if (type == 0) {
+                // Run File: 'inputText' is the file path
+                File file = new File(inputText);
+                String fileName = file.getName().toString().split("[.]")[0];
+                eng.feval(0, "printTextFromOutside", fileName + "\n", false, false, fileName);
 
-            eng.eval("run(\'" + inputText + "\')", writer, null);
-            outString = writer.toString();
+                eng.eval(fileName, writer, null);
+                // eng.eval("run(\'" + inputText + "\')", writer, null);
+                outString = writer.toString();
 
-            eng.feval(0, "printTextFromOutside", outString, true, true, "");
-        } else if (type == 1) {
-            // Run Section or Line: 'inputText' is the temporary file path
-            eng.eval("run(\'" + inputText + "\')", writer, null);
-            outString = writer.toString();
+                eng.feval(0, "printTextFromOutside", outString, true, true, "");
+            } else if (type == 1) {
+                // Run Section or Line: 'inputText' is the temporary file path,
+                // the optional argument is main file folder
+                eng.eval("runInFolder(\'" + inputText + "\', pwd)", writer, null);
+                outString = writer.toString();
 
-            eng.feval(0, "printTextFromOutside", "\n" + outString, true, true, "");
-        } else {
-            // Run 'inputText' without printing on the command window
-            eng.eval(inputText, null, null);
-            outString = "";
+                eng.feval(0, "printTextFromOutside", "\n" + outString, true, true, "");
+            } else {
+                // Run 'inputText' without printing on the command window
+                eng.eval(inputText, null, null);
+                outString = "";
+            }
+
+            System.out.println(outString);
+
+            writer.close();
+            eng.close();
+
+        } catch (Exception e) {
+            if (type == 0) {
+                eng.feval(0, "printTextFromOutside", "", true, true, "");
+            }
+            throw e;
         }
-
-        System.out.println(outString);
-
-        writer.close();
-        eng.close();
     }
 }

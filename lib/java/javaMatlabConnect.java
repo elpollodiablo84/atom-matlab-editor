@@ -42,8 +42,8 @@ public class javaMatlabConnect {
                 eng.feval(0, "printTextFromOutside", "\n" + outString, true, true, "");
             } else {
                 // Run 'inputText' without printing on the command window
-                eng.eval(inputText, null, null);
-                outString = "";
+                eng.eval(inputText, writer, null);
+                outString = writer.toString();
             }
 
             System.out.println(outString);

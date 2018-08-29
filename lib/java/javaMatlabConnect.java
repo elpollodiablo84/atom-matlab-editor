@@ -6,7 +6,7 @@ public class javaMatlabConnect {
         // INPUT:
         // args[0] -> Command/File to be executed in MATLAB
         // args[1] -> Call type: 0 - Run file
-        //                       1 - Run section or line
+        //                       1 - Run section or selection
 
         // INPUTS of MATLAB function printTextFromOutside:
         // #1 -> text (string)
@@ -37,8 +37,7 @@ public class javaMatlabConnect {
 
                 eng.feval(0, "printTextFromOutside", outString, false, true, true, "");
             } else if (type == 1) {
-                // Run Section or Line: 'inputText' is the temporary file path,
-                // the optional argument is the main file folder
+                // Run Section or Selection: 'inputText' is the temporary file path
                 eng.eval("runInFolder(\'" + inputText + "\', pwd)", writer, null);
                 outString = writer.toString();
 

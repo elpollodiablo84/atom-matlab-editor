@@ -24,7 +24,8 @@
   "activationCommands": {
     "atom-workspace": [
       "atom-matlab-editor:run-file",
-      "atom-matlab-editor:run-section"
+      "atom-matlab-editor:run-section",
+      "atom-matlab-editor:run-selection"
     ]
   },
   "repository": "https://github.com/atom/atom-matlab-editor",

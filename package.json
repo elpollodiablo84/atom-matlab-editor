@@ -25,7 +25,8 @@
     "atom-workspace": [
       "atom-matlab-editor:run-file",
       "atom-matlab-editor:run-section",
-      "atom-matlab-editor:run-selection"
+      "atom-matlab-editor:run-selection",
+      "atom-matlab-editor:get-help"
     ]
   },
   "repository": "https://github.com/atom/atom-matlab-editor",
@@ -40,5 +41,8 @@
   "dependencies": {
     "tmp": ">=0.0.1",
     "fs": ">=0.0.1"
+  },
+  "deserializers": {
+    "atom-matlab-editor/MatlabHelpView": "deserializeMatlabHelpView"
   }
 }

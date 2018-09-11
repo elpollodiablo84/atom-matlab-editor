@@ -2,6 +2,7 @@
   "atom-workspace": {
     "f5": "atom-matlab-editor:run-file",
     "ctrl-f5": "atom-matlab-editor:run-section",
-    "f9": "atom-matlab-editor:run-selection"
+    "f9": "atom-matlab-editor:run-selection",
+    "f1": "atom-matlab-editor:get-help"
   }
 }

@@ -1,4 +1,60 @@
 @import "ui-variables";
 
-.atom-matlab-editor {
+.matlab-help-view {
+  @margin: 1.5em;
+  @bg: @tool-panel-background-color;
+
+  padding: 2em;
+  overflow: auto;
+
+  font-size: 1.2em;
+
+  // HEADINGS
+  h1 {
+    font-size: 2.4em;
+    font-weight: 300;
+    line-height: 1.5;
+    border-bottom: 1px solid @text-color;
+    margin-bottom: @margin/3;
+  }
+  h2 {
+    font-size: 1.8em;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: @margin/3;
+    margin-top: @margin;
+  }
+  h3 {
+    font-size: 1.5em;
+    font-weight: 500;
+    line-height: 1.5;
+    border-bottom: 1px solid @text-color;
+    margin-bottom: @margin/3;
+    margin-top: @margin;
+  }
+
+  // CODE
+  pre {
+    font-size: 1em;
+    margin-bottom: @margin;
+  }
+  code {
+    background-color: contrast(@bg, lighten(@bg, 8%), darken(@bg, 8%));
+  }
+
+  // IMG
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border: 16px solid white;
+    border-radius: 4px;
+  }
+
+  // OTHERS
+  .remove_bold {
+    font-weight: normal;
+  }
+
 }

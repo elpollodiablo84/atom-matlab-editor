@@ -52,9 +52,24 @@
     border-radius: 4px;
   }
 
+  img.math_dark {
+    filter: invert(1);
+    mix-blend-mode: screen;
+  }
+
+  img.math_light {
+    mix-blend-mode: multiply;
+  }
+
   // OTHERS
   .remove_bold {
     font-weight: normal;
+  }
+
+  .inlinemediaobject img {
+    display: inline-block;
+    border: none;
+    background-color: transparent;
   }
 
 }

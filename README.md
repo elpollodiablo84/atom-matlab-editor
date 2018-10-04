@@ -8,15 +8,16 @@ MATLAB Editor's functionalities and utilities in Atom.
 
 3. Insert the MATLAB root path and the computer architecture in the package's config (check the config for instructions).
 
-There is no need to have a separate installation of Java, since the package uses the Java executable shipped with your version of MATLAB.
+Atom Matlab Editor utilizes Java as a bridge between Atom and Matlab, but there is no need to have a separate Java installation, since the package uses the executable shipped with your version of MATLAB.
 
-__WARNING__: This package is developed/tested with _MATLAB R2017a_ on _Windows_. For now the focus is on implementing all the features, therefore compatibility with different versions is not guaranteed. For this reason, remember to specify your MATLAB version and OS in any bug report!
+__WARNING__: _This package is developed/tested on Windows with MATLAB R2017a_.
+For now the focus is on implementing all the features, therefore compatibility with different versions is not guaranteed. For this reason, remember to specify your OS and MATLAB version in any bug report!
 
 ### Features
-- Run file, section or selection in the current MATLAB instance.
-- Call the MATLAB help in the Atom Editor.
+- Run file (`F5`), section (`CTRL+F5`) or selection (`F9`) in the current MATLAB instance.
+- Call the MATLAB help in the Atom Editor (`F1`).
 
 ### Planned Features
 - Panel showing current MATLAB folder contents.
-- Open function/script file in MATLAB search path from the Atom Editor (like `CTRL-D` in MATLAB).
+- Open function/script file in MATLAB search path from the Atom Editor (like `CTRL+D` in MATLAB).
 - Compatibility with versions different from R2017a.

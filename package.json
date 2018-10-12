@@ -7,7 +7,8 @@
     "MATLAB",
     "editor",
     "script",
-    "run"
+    "run",
+    "help"
   ],
   "consumedServices": {
     "busy-signal": {

@@ -1,12 +1,54 @@
 @import "ui-variables";
 
+@margin: 1.5em;
+@bg: @tool-panel-background-color;
+@toolbar-height: 32px;
+
+// MAIN
+.matlab-help-main {
+  display: flex;
+  flex-direction: column;
+}
+
+// TOOLBAR
+.matlab-help-toolbar {
+  min-height: @toolbar-height;
+  // border-bottom: 1px solid @panel-heading-background-color;
+  position: relative;
+
+  .matlab-help-btn-back, .matlab-help-btn-forward {
+    background-color: transparent;
+    opacity: 0.7;
+    border: none;
+    height: @toolbar-height;
+    width: @toolbar-height;
+    display: block;
+    position: absolute;
+  }
+
+  .matlab-help-btn-back:hover, .matlab-help-btn-forward:hover {
+    opacity: 1;
+  }
+
+  .matlab-help-btn-back:disabled, .matlab-help-btn-forward:disabled {
+    opacity: 0;
+  }
+
+  .matlab-help-btn-back {
+    left: 0;
+  }
+
+  .matlab-help-btn-forward {
+    right: 0;
+  }
+}
+
+// HELP VIEW
 .matlab-help-view {
-  @margin: 1.5em;
-  @bg: @tool-panel-background-color;
-
-  padding: 2em;
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-bottom: 2em;
   overflow: auto;
-
   font-size: 1.2em;
 
   // HEADINGS

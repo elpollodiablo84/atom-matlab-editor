@@ -14,22 +14,22 @@ function printTextFromOutside(text, doRemovePrompt, doAppendPrompt, isEditable, 
 
     % CmdWinDocument.appendprompt(): append a prompt to the Command Window's text
     if (doAppendPrompt)
-        mAppendPrompt = javaMethodEDT('getDeclaredMethod', cmdWinDocClass, 'appendPrompt', []);
+        mAppendPrompt = getDeclaredMethod(cmdWinDocClass, 'appendPrompt', []);
         mAppendPrompt.setAccessible(true);
     end
 
     % CmdWinDocument.shouldSyntaxHighlight(boolean): toggle on/off the Command Window's syntax highlighting
     inputClasses = javaArray('java.lang.Class', 1);
     inputClasses(1) = java.lang.Boolean.TYPE;
-    mShouldSyntaxHighlight = javaMethodEDT('getDeclaredMethod', cmdWinDocClass, 'shouldSyntaxHighlight', inputClasses);
+    mShouldSyntaxHighlight = getDeclaredMethod(cmdWinDocClass, 'shouldSyntaxHighlight', inputClasses);
     mShouldSyntaxHighlight.setAccessible(true);
 
     % CmdWinDocument.getPromptOffset(): get position of Prompt
-    mGetPromptOffset = javaMethodEDT('getDeclaredMethod', cmdWinDocClass, 'getPromptOffset', []);
+    mGetPromptOffset = getDeclaredMethod(cmdWinDocClass, 'getPromptOffset', []);
     mGetPromptOffset.setAccessible(true);
 
     % CmdWinDocument.getInUsePromptLength(): get length of current Prompt
-    mGetInUsePromptLength = javaMethodEDT('getDeclaredMethod', cmdWinDocClass, 'getInUsePromptLength', []);
+    mGetInUsePromptLength = getDeclaredMethod(cmdWinDocClass, 'getInUsePromptLength', []);
     mGetInUsePromptLength.setAccessible(true);
 
     %% Display the text
@@ -54,6 +54,18 @@ function printTextFromOutside(text, doRemovePrompt, doAppendPrompt, isEditable, 
 
     %% Add the command to the command history
     if (strlength(textToAddToHistory) > 0)
-        com.mathworks.mlservices.MLCommandHistoryServices.add(textToAddToHistory);
+        altHistory = com.mathworks.mde.cmdhist.AltHistory.getInstance();
+        fCollection = getDeclaredField(altHistory.getClass(), 'fCollection');
+        fCollection.setAccessible(true);
+        altHistoryCollection = fCollection.get(altHistory);
+
+        % Add the command
+        altHistoryCollection.addCommand(textToAddToHistory)
+
+        % We need to update manually the batchId of the record
+        commandRecordList = altHistoryCollection.getCommandRecordList();
+        iBatchId = getDeclaredField(commandRecordList.get(0).getClass(), 'iBatchId');
+        iBatchId.setAccessible(true);
+        iBatchId.set(commandRecordList.get(commandRecordList.size()-1), java.util.concurrent.atomic.AtomicInteger(-1))
     end
 end

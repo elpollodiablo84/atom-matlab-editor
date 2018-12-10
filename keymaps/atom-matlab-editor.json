@@ -3,6 +3,7 @@
     "f5": "atom-matlab-editor:run-file",
     "ctrl-f5": "atom-matlab-editor:run-section",
     "f9": "atom-matlab-editor:run-selection",
+    "ctrl-f1": "atom-matlab-editor:open-selection",
     "f1": "atom-matlab-editor:get-help"
   }
 }

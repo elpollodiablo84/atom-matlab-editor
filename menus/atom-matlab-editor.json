@@ -9,6 +9,22 @@
             {
               "label": "Run File",
               "command": "atom-matlab-editor:run-file"
+            },
+            {
+              "label": "Run Section",
+              "command": "atom-matlab-editor:run-section"
+            },
+            {
+              "label": "Run Selection",
+              "command": "atom-matlab-editor:run-selection"
+            },
+            {
+              "label": "Open Selection",
+              "command": "atom-matlab-editor:open-selection"
+            },
+            {
+              "label": "Get Help",
+              "command": "atom-matlab-editor:get-help"
             }
           ]
         }

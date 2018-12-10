@@ -16,8 +16,10 @@ For now the focus is on implementing all the features, therefore compatibility w
 ### Features
 - Run file (`F5`), section (`CTRL+F5`) or selection (`F9`) in the current MATLAB instance.
 - Call the MATLAB help in the Atom Editor (`F1`).
+- Open function/script file in MATLAB search path from the Atom Editor (`CTRL+F1`).
+- Change current folder in Matlab from Atom (Right-Click on relative TextEditor tab).
 
 ### Planned Features
-- Panel showing current MATLAB folder contents.
-- Open function/script file in MATLAB search path from the Atom Editor (like `CTRL+D` in MATLAB).
+- Panel showing current MATLAB folder contents (maybe it's not possible).
+- Linting (don't know if it's worth it since it already exists).
 - Compatibility with versions different from R2017a.

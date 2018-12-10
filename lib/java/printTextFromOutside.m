@@ -35,10 +35,14 @@ function printTextFromOutside(text, doRemovePrompt, doAppendPrompt, isEditable, 
     %% Display the text
     javaMethodEDT('invoke', mShouldSyntaxHighlight, cmdWinDoc, false);
 
+    if (~isEditable)
+        javaMethodEDT('removeCurrentPromptLine', cmdWinDoc);
+    end
+
     if (doRemovePrompt)
-        s = javaMethodEDT('invoke', mGetPromptOffset, cmdWinDoc, []);
-        e = javaMethodEDT('invoke', mGetInUsePromptLength, cmdWinDoc, []);
-        javaMethodEDT('remove', cmdWinDoc, s, e);
+        ps = javaMethodEDT('invoke', mGetPromptOffset, cmdWinDoc, []);
+        pe = javaMethodEDT('invoke', mGetInUsePromptLength, cmdWinDoc, []);
+        javaMethodEDT('remove', cmdWinDoc, ps, pe);
     end
 
     javaMethodEDT('append', jTextArea, sprintf(text))

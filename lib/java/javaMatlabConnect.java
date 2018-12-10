@@ -37,11 +37,13 @@ public class javaMatlabConnect {
 
                 eng.feval(0, "printTextFromOutside", outString, false, true, true, "");
             } else if (type == 1) {
+                eng.feval(0, "printTextFromOutside", "", true, false, false, "");
+
                 // Run Section or Selection: 'inputText' is the temporary file path
                 eng.eval("runInFolder(\'" + inputText + "\', pwd)", writer, null);
                 outString = writer.toString();
 
-                eng.feval(0, "printTextFromOutside", outString, true, true, true, "");
+                eng.feval(0, "printTextFromOutside", outString, false, true, true, "");
             } else {
                 // Run 'inputText' without printing on the command window
                 eng.eval(inputText, writer, null);
@@ -54,10 +56,9 @@ public class javaMatlabConnect {
             eng.close();
 
         } catch (Exception e) {
-            if (type == 0) {
-                // This ensures that the MATLAB command window is set to editable in case of errors
-                eng.feval(0, "printTextFromOutside", "", false, true, true, "");
-            }
+            // This ensures that the MATLAB command window is set to editable in case of errors
+            eng.feval(0, "printTextFromOutside", "", false, true, true, "");
+            
             throw e;
         }
     }

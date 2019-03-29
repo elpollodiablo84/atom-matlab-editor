@@ -54,8 +54,6 @@ function printTextFromOutside(text, doRemovePrompt, doAppendPrompt, isEditable, 
     javaMethodEDT('invoke', mShouldSyntaxHighlight, cmdWinDoc, true);
     javaMethodEDT('setCaretPosition', jTextArea, jTextArea.getText().length());
 
-    javaMethodEDT('repaint', jTextArea);
-
     %% Add the command to the command history
     if (strlength(textToAddToHistory) > 0)
         altHistory = com.mathworks.mde.cmdhist.AltHistory.getInstance();
@@ -63,13 +61,27 @@ function printTextFromOutside(text, doRemovePrompt, doAppendPrompt, isEditable, 
         fCollection.setAccessible(true);
         altHistoryCollection = fCollection.get(altHistory);
 
-        % Add the command
-        altHistoryCollection.addCommand(textToAddToHistory)
+        % AltHistoryCollection.interruptSaveAll(): interrupt save process
+        mInterruptSaveAll = getDeclaredMethod(altHistoryCollection.getClass(), 'interruptSaveAll', []);
+        mInterruptSaveAll.setAccessible(true);
 
-        % We need to update manually the batchId of the record
-        commandRecordList = altHistoryCollection.getCommandRecordList();
-        iBatchId = getDeclaredField(commandRecordList.get(0).getClass(), 'iBatchId');
-        iBatchId.setAccessible(true);
-        iBatchId.set(commandRecordList.get(commandRecordList.size()-1), java.util.concurrent.atomic.AtomicInteger(-1))
+        % AltHistoryCollection.restartInterruptedSave(): restart save process
+        mRestartInterruptedSave = getDeclaredMethod(altHistoryCollection.getClass(), 'restartInterruptedSave', []);
+        mRestartInterruptedSave.setAccessible(true);
+
+        javaMethodEDT('invoke', mInterruptSaveAll, altHistoryCollection, []);
+        try
+            % Add the command
+            javaMethodEDT('addCommand', altHistoryCollection, textToAddToHistory);
+
+            % We need to update manually the batchId of the record
+            commandRecordList = altHistoryCollection.getCommandRecordList();
+            iBatchId = getDeclaredField(commandRecordList.get(0).getClass(), 'iBatchId');
+            iBatchId.setAccessible(true);
+            iBatchId.set(commandRecordList.get(commandRecordList.size()-1), java.util.concurrent.atomic.AtomicInteger(-1))
+        end
+        javaMethodEDT('invoke', mRestartInterruptedSave, altHistoryCollection, []);
     end
+
+    javaMethodEDT('repaint', jTextArea);
 end

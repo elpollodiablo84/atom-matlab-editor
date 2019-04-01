@@ -1,4 +1,15 @@
-function printTextFromOutside(text, doRemovePrompt, doAppendPrompt, isEditable, textToAddToHistory)
+function textInPromptLine = printTextFromOutside(text, removePrompt, appendPrompt, isEditable, textToAddToHistory, textToAddToPrompt)
+    % INPUTS:
+    % #1 -> text (string)
+    % #2 -> remove current prompt (boolean)
+    % #3 -> append prompt after text (boolean)
+    % #4 -> set the command window editable (boolean)
+    % #5 -> text to add to the command history (string)
+    % #6 -> text to add to the command window after the prompt (string)
+
+    % OUTPUT:
+    % #1 -> text after prompt (string)
+
     %% Get GUI components
     try
         jTextArea = com.mathworks.mde.cmdwin.XCmdWndView.getInstance;
@@ -13,7 +24,7 @@ function printTextFromOutside(text, doRemovePrompt, doAppendPrompt, isEditable, 
     cmdWinDocClass = cmdWinDoc.getClass();
 
     % CmdWinDocument.appendprompt(): append a prompt to the Command Window's text
-    if (doAppendPrompt)
+    if (appendPrompt)
         mAppendPrompt = getDeclaredMethod(cmdWinDocClass, 'appendPrompt', []);
         mAppendPrompt.setAccessible(true);
     end
@@ -35,19 +46,30 @@ function printTextFromOutside(text, doRemovePrompt, doAppendPrompt, isEditable, 
     %% Display the text
     javaMethodEDT('invoke', mShouldSyntaxHighlight, cmdWinDoc, false);
 
+    % Get text already in line
+    ps = javaMethodEDT('invoke', mGetPromptOffset, cmdWinDoc, []);
+    pe = javaMethodEDT('invoke', mGetInUsePromptLength, cmdWinDoc, []);
+    L = javaMethodEDT('getLength', cmdWinDoc);
+    if (ps + pe < L)
+        textInPromptLine = string(javaMethodEDT('getText', cmdWinDoc, ps + pe, L - ps - pe));
+    else
+        textInPromptLine = "";
+    end
+
     if (~isEditable)
         javaMethodEDT('removeCurrentPromptLine', cmdWinDoc);
     end
 
-    if (doRemovePrompt)
-        ps = javaMethodEDT('invoke', mGetPromptOffset, cmdWinDoc, []);
-        pe = javaMethodEDT('invoke', mGetInUsePromptLength, cmdWinDoc, []);
+    if (removePrompt)
         javaMethodEDT('remove', cmdWinDoc, ps, pe);
     end
 
     javaMethodEDT('append', jTextArea, sprintf(text))
-    if (doAppendPrompt)
+    if (appendPrompt)
         javaMethodEDT('invoke', mAppendPrompt, cmdWinDoc, []);
+        if ~isempty(textToAddToPrompt)
+            javaMethodEDT('append', jTextArea, sprintf(textToAddToPrompt))
+        end
     end
 
     javaMethodEDT('setEditable', jTextArea, isEditable);

@@ -1,11 +1,12 @@
-function textInPromptLine = printTextFromOutside(text, removePrompt, appendPrompt, isEditable, textToAddToHistory, textToAddToPrompt)
+function textInPromptLine = printTextFromOutside(text, removePrompt, appendPrompt, highlightSyntax, isEditable, textToAddToHistory, textToAddToPrompt)
     % INPUTS:
     % #1 -> text (string)
     % #2 -> remove current prompt (boolean)
     % #3 -> append prompt after text (boolean)
-    % #4 -> set the command window editable (boolean)
-    % #5 -> text to add to the command history (string)
-    % #6 -> text to add to the command window after the prompt (string)
+    % #4 -> allow syntax highlighting (boolean)
+    % #5 -> set the command window editable (boolean)
+    % #6 -> text to add to the command history (string)
+    % #7 -> text to add to the command window after the prompt (string)
 
     % OUTPUT:
     % #1 -> text after prompt (string)
@@ -44,14 +45,16 @@ function textInPromptLine = printTextFromOutside(text, removePrompt, appendPromp
     mGetInUsePromptLength.setAccessible(true);
 
     %% Display the text
-    javaMethodEDT('invoke', mShouldSyntaxHighlight, cmdWinDoc, false);
+    if ~(highlightSyntax)
+        javaMethodEDT('invoke', mShouldSyntaxHighlight, cmdWinDoc, false);
+    end
 
     % Get text already in line
     ps = javaMethodEDT('invoke', mGetPromptOffset, cmdWinDoc, []);
     pe = javaMethodEDT('invoke', mGetInUsePromptLength, cmdWinDoc, []);
     L = javaMethodEDT('getLength', cmdWinDoc);
     if (ps + pe < L)
-        textInPromptLine = string(javaMethodEDT('getText', cmdWinDoc, ps + pe, L - ps - pe));
+        textInPromptLine = char(javaMethodEDT('getText', cmdWinDoc, ps + pe, L - ps - pe));
     else
         textInPromptLine = "";
     end
@@ -64,11 +67,11 @@ function textInPromptLine = printTextFromOutside(text, removePrompt, appendPromp
         javaMethodEDT('remove', cmdWinDoc, ps, pe);
     end
 
-    javaMethodEDT('append', jTextArea, sprintf(text))
+    javaMethodEDT('append', jTextArea, char(text))
     if (appendPrompt)
         javaMethodEDT('invoke', mAppendPrompt, cmdWinDoc, []);
         if ~isempty(textToAddToPrompt)
-            javaMethodEDT('append', jTextArea, sprintf(textToAddToPrompt))
+            javaMethodEDT('append', jTextArea, char(textToAddToPrompt))
         end
     end
 
@@ -91,19 +94,32 @@ function textInPromptLine = printTextFromOutside(text, removePrompt, appendPromp
         mRestartInterruptedSave = getDeclaredMethod(altHistoryCollection.getClass(), 'restartInterruptedSave', []);
         mRestartInterruptedSave.setAccessible(true);
 
-        javaMethodEDT('invoke', mInterruptSaveAll, altHistoryCollection, []);
-        try
-            % Add the command
-            javaMethodEDT('addCommand', altHistoryCollection, textToAddToHistory);
+        % Add the command(s)
+        linesToAdd = splitlines(textToAddToHistory);
+        jLinesToAdd = javaArray('java.lang.String', length(linesToAdd));
+        for i = 1:length(linesToAdd)
+            jLinesToAdd(i) = java.lang.String(linesToAdd{i});
+        end
+        jLinesToAdd = java.util.Arrays.asList(jLinesToAdd);
 
-            % We need to update manually the batchId of the record
+        javaMethodEDT('invoke', mInterruptSaveAll, altHistoryCollection, []);
+        javaMethodEDT('addCommands', altHistoryCollection, jLinesToAdd);
+
+        % We need to update manually the batchId of the record(s)
+        if (length(linesToAdd) == 1)
             commandRecordList = altHistoryCollection.getCommandRecordList();
             iBatchId = getDeclaredField(commandRecordList.get(0).getClass(), 'iBatchId');
             iBatchId.setAccessible(true);
             iBatchId.set(commandRecordList.get(commandRecordList.size()-1), java.util.concurrent.atomic.AtomicInteger(-1))
+        else
+            fBatchId = getDeclaredField(altHistoryCollection.getClass(), 'fBatchId');
+            fBatchId.setAccessible(true);
+            fBatchId.set(altHistoryCollection, java.lang.Integer(fBatchId.get(altHistoryCollection) + 1));
         end
+
         javaMethodEDT('invoke', mRestartInterruptedSave, altHistoryCollection, []);
     end
 
+    %% Update jTextArea
     javaMethodEDT('repaint', jTextArea);
 end

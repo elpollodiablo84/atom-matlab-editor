@@ -4,9 +4,13 @@ MATLAB Editor's functionalities and utilities in Atom.
 ### Installation
 1. Execute `matlab.engine.shareEngine('AtomMatlabEngine')` in your current MATLAB instance, or [put the line in your `startup.m`](https://mathworks.com/help/matlab/matlab_env/startup-options.html#brlkmbe-1).
 
-2. Add the folder `\.atom\packages\atom-matlab-editor\lib\java` to your MATLAB [search path](https://mathworks.com/help/matlab/search-path.html).
+2. Add the folder `[...]\.atom\packages\atom-matlab-editor\lib\java` to your MATLAB [search path](https://mathworks.com/help/matlab/search-path.html).
 
-3. Insert the MATLAB root path and the computer architecture in the package's config (check the config for instructions).
+3. Insert the MATLAB root path and the computer architecture in the package's config.
+  - To retrieve your MATLAB root path, type `matlabroot` in your MATLAB instance.
+  - For the computer architecture, type `computer('arch')`.
+
+4. In case of _"no nativemvm in java.library.path"_ error: add the correct path to your environmental variables as explained in [this MATLAB Answers thread](https://it.mathworks.com/matlabcentral/answers/320234-using-java-api-gives-no-nativemvm-in-java-library-path), and then restart Atom.
 
 Atom Matlab Editor utilizes Java as a bridge between Atom and Matlab, but there is no need to have a separate Java installation, since the package uses the executable shipped with your version of MATLAB.
 
@@ -22,5 +26,4 @@ For now the focus is on implementing all the features, therefore compatibility w
 
 ### Planned Features
 - Panel showing current MATLAB folder contents.
-- Linting (don't know if it's worth it since it already exists).
 - Compatibility with versions less than R2017a.

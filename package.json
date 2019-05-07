@@ -13,12 +13,17 @@
   "consumedServices": {
     "busy-signal": {
       "versions": {
-        "1.0.0": "consumeSignal"
+        ">=1.0.0": "consumeSignal"
       }
     },
     "section-bounds": {
       "versions": {
         ">=1.7.0": "consumeBounds"
+      }
+    },
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
       }
     }
   },

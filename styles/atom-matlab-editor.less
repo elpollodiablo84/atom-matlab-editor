@@ -4,13 +4,31 @@
 @bg: @tool-panel-background-color;
 @toolbar-height: 30px;
 
-// MAIN
+@font-face {
+	font-family: Matlab Icons;
+	font-weight: normal;
+	font-style: normal;
+	src: url("atom://atom-matlab-editor/styles/matlab_icons.woff");
+}
+
+// STATUSBAR ICON
+.matlab-logo-icon:before {
+	font-family: "Matlab Icons";
+	top: 2px !important;
+	content: "M";
+}
+
+.matlab-not-found {
+	color: @background-color-error;
+}
+
+// HELP MAIN
 .matlab-help-main {
   display: flex;
   flex-direction: column;
 }
 
-// TOOLBAR
+// HELP TOOLBAR
 .matlab-help-toolbar {
   min-height: @toolbar-height;
   border-bottom: 1px solid @panel-heading-border-color;

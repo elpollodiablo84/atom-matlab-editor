@@ -71,6 +71,8 @@ public class javaMatlabConnect {
                 // Run 'inputText' without printing on the command window
                 eng.eval(inputText, writer, null);
                 outString = writer.toString();
+
+                System.out.println(outString);
             }
 
             // Debug

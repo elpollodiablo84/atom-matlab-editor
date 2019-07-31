@@ -24,7 +24,8 @@ For now the focus is on implementing all the features, therefore compatibility w
 - Open function/script file in MATLAB search path from the Atom Editor (`CTRL+F1`).
 - Change current folder in Matlab from Atom (`Right-Click` on the relative TextEditor tab).
 - Open file in Matlab (`Right-Click` on the TreeView item).
-- Check your current Matlab Folder directly on the Atom statusbar.
+- Check your Current Matlab Folder directly on the Atom statusbar.
 
 ### Planned Features
+- Change Current Matlab Folder from the statusbar.
 - Compatibility with versions less than R2017a.

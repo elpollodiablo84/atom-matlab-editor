@@ -10,6 +10,9 @@
     "run",
     "help"
   ],
+  "activationHooks": [
+    "language-matlab-plus:grammar-used"
+  ],
   "consumedServices": {
     "busy-signal": {
       "versions": {

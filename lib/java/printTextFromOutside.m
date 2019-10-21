@@ -21,7 +21,7 @@ function textInPromptLine = printTextFromOutside(text, removePrompt, appendPromp
     end
     cmdWinDoc = jTextArea.getDocument();
 
-    %% Some Reflection magic to get some usefull private methods
+    %% Some Reflection magic to get some useful private methods
     cmdWinDocClass = cmdWinDoc.getClass();
 
     % CmdWinDocument.appendprompt(): append a prompt to the Command Window's text

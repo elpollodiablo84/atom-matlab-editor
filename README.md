@@ -17,7 +17,7 @@ MATLAB Editor's functionalities and utilities in Atom.
 Atom Matlab Editor utilizes Java as a bridge between Atom and MATLAB, without the need to have a separate Java installation since the package uses the executable shipped with MATLAB.
 
 __WARNING__: _This package is developed on Windows with MATLAB R2019a (initially with R2017a). It's safe to assume that the package works for all the versions in between._
-For now the focus is on implementing all the features, therefore compatibility with versions older than R2017a is not guaranteed. For this reason, remember to specify your OS and MATLAB version in any bug report.
+For now the focus is on implementing/polishing all the features, therefore compatibility with versions older than R2017a is not guaranteed. For this reason, remember to specify your OS and MATLAB version in any bug report.
 
 ### Features
 - Run file (`F5`), section (`CTRL+F5`) or selection (`F9`) in the current MATLAB instance.

@@ -1,7 +1,9 @@
 # Atom Matlab Editor
 MATLAB Editor's functionalities and utilities in Atom.
 
-### Installation
+![](images\screen_00.png)
+
+### Setup
 1. Execute `matlab.engine.shareEngine('AtomMatlabEngine')` in your current MATLAB instance, or [put the line in your `startup.m`](https://mathworks.com/help/matlab/matlab_env/startup-options.html#brlkmbe-1).
 
 2. Add the folder `[...]\.atom\packages\atom-matlab-editor\lib\java` to your MATLAB [search path](https://mathworks.com/help/matlab/search-path.html).

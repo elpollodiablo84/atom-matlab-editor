@@ -27,7 +27,7 @@
       }
     }
   },
-  "repository": "https://github.com/atom/atom-matlab-editor",
+  "repository": "https://github.com/elpollodiablo84/atom-matlab-editor",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"

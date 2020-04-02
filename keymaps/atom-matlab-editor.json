@@ -1,6 +1,7 @@
 {
   "atom-workspace": {
     "f5": "atom-matlab-editor:run-file",
+    "alt-f5": "atom-matlab-editor:save-run-file",
     "ctrl-f5": "atom-matlab-editor:run-section",
     "f9": "atom-matlab-editor:run-selection",
     "ctrl-f1": "atom-matlab-editor:open-selection",

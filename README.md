@@ -1,7 +1,7 @@
 # Atom Matlab Editor
 MATLAB Editor's functionalities and utilities in Atom.
 
-![](https://github.com/elpollodiablo84/atom-matlab-editor/blob/master/images/screen_00.png)
+![](https://github.com/elpollodiablo84/atom-matlab-editor/raw/master/images/screen_00.png)
 
 ### Setup
 1. Execute `matlab.engine.shareEngine('AtomMatlabEngine')` in your current MATLAB instance, or [put the line in your `startup.m`](https://mathworks.com/help/matlab/matlab_env/startup-options.html#brlkmbe-1).
@@ -23,6 +23,7 @@ For now the focus is on implementing/polishing all the features, therefore compa
 
 ### Features
 - Run file (`F5`), section (`CTRL+F5`) or selection (`F9`) in the current MATLAB instance.
+- Save and run file (`ALT-F5`). Be careful, sometimes MATLAB fails to notice that a file has been modified by an external editor.
 - Call the MATLAB help in the Atom Editor (`F1` on selection).
 - Open function/script file in MATLAB search path from the Atom Editor (`CTRL+F1`).
 - Change current folder in Matlab from Atom (`Right-Click` on the relative TextEditor tab).

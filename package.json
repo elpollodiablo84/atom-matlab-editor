@@ -1,7 +1,7 @@
 {
   "name": "atom-matlab-editor",
   "main": "./lib/atom-matlab-editor",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "MATLAB Editor's functionalities and utilities in Atom",
   "keywords": [
     "MATLAB",

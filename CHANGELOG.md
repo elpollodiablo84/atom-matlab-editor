@@ -1,5 +1,11 @@
 ## Changelog
 
+#### v. 0.5.0
+- Add support to Current Directory for versions >= R2020a
+
+#### v. 0.4.0
+- Resolve issue #7
+
 #### v. 0.3.0
 - Add `CHANGELOG.md`.
 - Add "no nativenvm library" notification.
